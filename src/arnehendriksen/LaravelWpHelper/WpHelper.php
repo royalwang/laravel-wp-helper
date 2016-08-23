@@ -1,5 +1,7 @@
 <?php namespace arnehendriksen\LaravelWpHelper;
 
+use Illuminate\Support\Facades\DB;
+
 class WpHelper
 {
 
