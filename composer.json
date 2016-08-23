@@ -1,0 +1,21 @@
+{
+    "name": "arnehendriksen/laravel-wp-helper",
+    "description": "WordPress helper for Laravel, picking up where the REST API left off",
+    "keywords": ["laravel", "package", "wordpress", "API", "REST"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Arne Hendriksen",
+            "email": "arne.hendriksen@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.0"
+    },
+    "autoload": {
+        "psr-0": {
+            "arnehendriksen\\LaravelWpHelper\\": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
