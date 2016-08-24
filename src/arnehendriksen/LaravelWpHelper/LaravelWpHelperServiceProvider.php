@@ -33,12 +33,10 @@ class LaravelWpHelperServiceProvider extends ServiceProvider
     {
 
         /*
+		// @todo: Try and get this to work... :)
         $this->app->singleton(WpHelper::class, function ($app) {
-
             $table_prefix = $this->app['config']->get('wp-helper.table_prefix');
-
             return new WpHelper($table_prefix);
-
         });
         */
         return new WpHelper();
