@@ -12,6 +12,11 @@ class WpHelper
      */
     protected $table_prefix;
 
+    /**
+     * Constructor
+     *
+     * @param string $table_prefix
+     */
     public function __construct($table_prefix)
     {
         $this->table_prefix = $table_prefix;
@@ -25,7 +30,7 @@ class WpHelper
      */
     public function option($option_name)
     {
-        $option = DB::table($this->table_prefix.'wp_options')->select('option_value')->where('option_name','=',$option_name)->first();
+        $option = DB::table($this->table_prefix.'_options')->select('option_value')->where('option_name','=',$option_name)->first();
         if ( $option ) {
             return $option->option_value;
         }
