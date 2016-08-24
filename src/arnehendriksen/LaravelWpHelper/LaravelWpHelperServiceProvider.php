@@ -41,12 +41,9 @@ class LaravelWpHelperServiceProvider extends ServiceProvider
 
         });
         */
-        $this->app->bind(WpHelper::class, function($app){
+        $table_prefix = \Config::get('wp-helper.table_prefix');
+        return new WpHelper($table_prefix);
 
-            $table_prefix = $this->app['config']->get('wp-helper.table_prefix');
-
-            return new WpHelper($table_prefix);
-        });
     }
 
     /**

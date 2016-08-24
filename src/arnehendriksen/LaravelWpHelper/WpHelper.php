@@ -30,7 +30,7 @@ class WpHelper
      */
     public function option($option_name)
     {
-        $option = DB::table($this->table_prefix.'_options')->select('option_value')->where('option_name','=',$option_name)->first();
+        $option = DB::table($this->table_prefix.'options')->select('option_value')->where('option_name','=',$option_name)->first();
         if ( $option ) {
             return $option->option_value;
         }
