@@ -17,9 +17,9 @@ class WpHelper
      *
      * @param string $table_prefix
      */
-    public function __construct($table_prefix)
+    public function __construct()
     {
-        $this->table_prefix = $table_prefix;
+        $this->table_prefix = \Config::get('wp-helper.table_prefix');
     }
 
     /**
