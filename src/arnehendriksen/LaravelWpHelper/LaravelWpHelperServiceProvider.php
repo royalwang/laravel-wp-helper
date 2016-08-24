@@ -19,7 +19,9 @@ class LaravelWpHelperServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
+        $this->publishes([
+            __DIR__.'/../../config/config.php' => config_path('wp-helper.php'),
+        ]);
     }
 
     /**
@@ -29,7 +31,13 @@ class LaravelWpHelperServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->singleton(WpHelper::class, function ($app) {
 
+            $table_prefix = $this->app['config']->get('wp-helper.table_prefix');
+
+            return new WpHelper($table_prefix);
+
+        });
     }
 
     /**
@@ -39,5 +47,6 @@ class LaravelWpHelperServiceProvider extends ServiceProvider
      */
     public function provides()
     {
+        return ['wp-helper'];
     }
 }

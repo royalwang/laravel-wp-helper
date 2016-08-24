@@ -5,9 +5,16 @@ use Illuminate\Support\Facades\DB;
 class WpHelper
 {
 
-    public function __construct()
-    {
+    /**
+     * Table prefix as defined in the config.
+     *
+     * @var string
+     */
+    protected $table_prefix;
 
+    public function __construct($table_prefix)
+    {
+        $this->table_prefix = $table_prefix;
     }
 
     /**
@@ -16,8 +23,9 @@ class WpHelper
      * @param $option_name
      * @return mixed
      */
-    public function option($option_name) {
-        $option = DB::table('wp_options')->select('option_value')->where('option_name','=',$option_name)->first();
+    public function option($option_name)
+    {
+        $option = DB::table($this->table_prefix.'wp_options')->select('option_value')->where('option_name','=',$option_name)->first();
         if ( $option ) {
             return $option->option_value;
         }
