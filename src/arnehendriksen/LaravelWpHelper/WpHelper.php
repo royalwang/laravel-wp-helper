@@ -37,4 +37,26 @@ class WpHelper
 	    return $fallback;
     }
 
+    /**
+     * Return any page or post by its URI, optionally filtered by its post_type.
+     *
+     * @param $uri
+     * @param bool $post_type
+     * @return bool
+     */
+    public function byUri($uri, $post_type = false)
+    {
+        $post = DB::table($this->table_prefix.'posts')
+            ->where('post_name','=',$uri)
+            ->where('post_status','=','publish');
+        if ( $post_type ) {
+            $post = $post->where('post_type','=',$post_type);
+        }
+        $post = $post->first();
+        if ( $post ) {
+            return $post;
+        }
+        return false;
+    }
+
 }
