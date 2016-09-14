@@ -37,7 +37,25 @@ class WpHelper
 	    return $fallback;
     }
 
-    /**
+	/**
+	 * Return the meta_value from wp_postmeta, based on the given post_id and meta_key.
+	 * If no meta_value is found, return a fallback, if provided.
+	 *
+	 * @param $post_id
+	 * @param $meta_key
+	 * @param bool $fallback
+	 * @return bool
+	 */
+	public function postmeta($post_id, $meta_key, $fallback = false)
+	{
+		$postmeta = DB::table($this->table_prefix.'postmeta')->select('meta_value')->where('post_id','=',$post_id)->where('meta_key','=',$meta_key)->first();
+		if ( $postmeta ) {
+			return $postmeta->meta_value;
+		}
+		return $fallback;
+	}
+
+	/**
      * Return any page or post by its URI, optionally filtered by its post_type.
      *
      * @param $uri
