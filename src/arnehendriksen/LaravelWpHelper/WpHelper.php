@@ -77,4 +77,26 @@ class WpHelper
         return false;
     }
 
+	/**
+	 * Return any page or post by its id, optionally filtered by its post_type.
+	 *
+	 * @param $id
+	 * @param bool $post_type
+	 * @return bool
+	 */
+	public function byId($id, $post_type = false)
+	{
+		$post = DB::table($this->table_prefix.'posts')
+			->where('ID','=',$id)
+			->where('post_status','=','publish');
+		if ( $post_type ) {
+			$post = $post->where('post_type','=',$post_type);
+		}
+		$post = $post->first();
+		if ( $post ) {
+			return $post;
+		}
+		return false;
+	}
+
 }
