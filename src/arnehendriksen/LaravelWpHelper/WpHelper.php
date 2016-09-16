@@ -56,6 +56,27 @@ class WpHelper
 	}
 
 	/**
+	 * Return all meta keys and values from wp_postmeta.
+	 * If a post_id is provided, return only the meta data specific to that post.
+	 *
+	 * @param bool $post_id
+	 * @return bool
+	 */
+	public function allPostmeta($post_id = false)
+	{
+		if ( $post_id ) {
+			$postmeta = DB::table($this->table_prefix.'postmeta')->where('post_id','=',$post_id)->get();
+		}
+		else {
+			$postmeta = DB::table($this->table_prefix.'postmeta')->get();
+		}
+		if ( $postmeta ) {
+			return $postmeta;
+		}
+		return false;
+	}
+
+	/**
      * Return any page or post by its URI, optionally filtered by its post_type.
      *
      * @param $uri
