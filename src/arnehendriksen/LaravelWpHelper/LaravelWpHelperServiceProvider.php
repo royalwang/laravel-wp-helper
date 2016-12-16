@@ -40,7 +40,6 @@ class LaravelWpHelperServiceProvider extends ServiceProvider
         });
         */
         return new WpHelper();
-
     }
 
     /**
