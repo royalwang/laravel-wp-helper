@@ -20,11 +20,33 @@ class WpHelper
     protected $postmeta = false;
 
     /**
+     * Local copy of retrieved options, to prevent unnecessary database calls.
+     *
+     * @var array
+     */
+    protected $options = false;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
         $this->table_prefix = \Config::get('wp-helper.table_prefix');
+    }
+
+    public function precacheOptions($option_names)
+    {
+        if (is_array($option_names)) {
+            $options = DB::table($this->table_prefix.'options')
+                ->select('option_name', 'option_value')
+                ->whereIn('option_name', $option_names)
+                ->get();
+            if ($options) {
+                foreach ($options as $option) {
+                    $this->options[$option->option_name] = $option->option_value;
+                }
+            }
+         }
     }
 
     /**
@@ -37,11 +59,15 @@ class WpHelper
      */
     public function option($option_name, $fallback = false)
     {
+        if (isset($this->options[$option_name])) {
+            return $this->options[$option_name];
+        }
         $option = DB::table($this->table_prefix.'options')
             ->select('option_value')
             ->where('option_name', '=', $option_name)
             ->first();
         if ($option) {
+            $this->options[$option_name] = $option->option_value;
             return $option->option_value;
         }
         return $fallback;
