@@ -46,6 +46,12 @@ class WpHelper
                     $this->options[$option->option_name] = $option->option_value;
                 }
             }
+            // Set empty values for unfound options, to prevent new database calls.
+            foreach ($option_names as $option) {
+                if (!isset($this->options[$option])) {
+                    $this->options[$option] = '';
+                }
+            }
          }
     }
 
